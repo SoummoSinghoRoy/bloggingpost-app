@@ -1,0 +1,121 @@
+<%- include('../../partials/header.ejs')  %>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <%- include('../../partials/sidebar.ejs')  %>
+      </div>
+
+      <div class="col-md-9">
+        <div class="row counter">
+          <div class="col-6">
+            <div class="card mb-3 total-post">
+              <% if (totalpostlength === 0) { %>
+                <div class="row g-0">
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h2 class="card-title">Total Post</h2>
+                      <p class="card-text"><small class="text-muted">created At - </small></p>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <p class="card-text text-warning display-3" style="text-align: center;"><%= totalpostlength %> </p>
+                  </div>
+                </div>
+              <% }else{ %>
+                <div class="row g-0">
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">Total Post</h5>
+                      <p class="card-text"><small class="text-muted">Last created At - <%= moment(lastPost) %> </small></p>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <p class="card-text text-warning display-3" style="text-align: center;"><%= totalpostlength %></p>
+                  </div>
+                </div> 
+              <% } %> 
+            </div>
+          </div>
+          
+          <div class="col-6">
+            <div class="card mb-3 total-bookmarks" style="height: 103px;">
+              <% if (totalbookmarkslength === 0) { %>
+                <div class="row g-0">
+                  <div class="col-md-9">
+                    <div class="card-body">
+                      <h2 class="card-title">Total Bookmarks</h2>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <p class="card-text text-warning display-3" style="text-align: center;"><%= totalbookmarkslength %> </p>
+                    <p></p>
+                  </div>
+                </div>
+              <% }else{ %>
+                <div class="row g-0">
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">Total Bookmarks</h5>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <p class="card-text text-warning display-3" style="text-align: center;"> <%= totalbookmarkslength %>  </p>
+                  </div>
+                </div> 
+              <% } %> 
+            </div>
+          </div>
+        </div>
+
+        <div class="posts">
+          <h5 class="text-warning py-3">All Posts</h5>
+          <% if (posts.length === 0) { %>
+            <div class="card card-body">
+              <h4 class="card-title text-muted text-center">Posts not found</h4>
+            </div>
+          <% }else{ %>
+            <div class="row">
+              <% for( let post of posts.reverse() ) { %>
+              <div class="col-4 mb-2">
+                <div class="card card-body">
+                  <% if (post.thumbnail) { %>
+                    <img src="<%= post.thumbnail %> " class="card-img-top" alt="post thumbnail" height="145">
+                  <% } %>
+                  <a href="/explorer/<%= post._id %>" class="text-dark h6 pt-2"><%= post.title %> </a>
+                </div>
+              </div>
+            <% } %>
+            </div>
+          <% } %> 
+        </div>
+
+        <div class="bookmarks mt-3">
+          <h5 class="text-warning py-3">All Bookmarks Posts</h5>
+          <% if (bookmarks.length === 0) { %>
+            <div class="card card-body">
+              <h4 class="card-title text-muted text-center">bookmarks posts not found</h4>
+            </div>
+          <% }else{ %>
+            <div class="row">
+              <% for( let bookmarkpost of bookmarks.reverse() ) { %>
+              <div class="col-4 mb-2">
+                <div class="card card-body">
+                  <% if (bookmarkpost.thumbnail) { %>
+                    <img src="<%= bookmarkpost.thumbnail %> " class="card-img-top" alt="post thumbnail" height="145">
+                  <% } %>
+                  <a href="/explorer/<%= bookmarkpost._id %>" class="text-dark h6 pt-2"><%= bookmarkpost.title %> </a>
+                </div>
+              </div>
+            <% } %>
+            </div>
+          <% } %> 
+        </div>
+      </div>
+    </div>
+  </div>
+
+<%- include('../../partials/footer.ejs')  %>
+
+</body>
+</html> 

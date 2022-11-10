@@ -1,0 +1,81 @@
+<%- include('../../partials/header.ejs') %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-sm-3">
+      <div class="my-5 d-flex justify-content-center">
+        <a href="/explorer?filter=latest" class="btn <%= filter == 'latest' ? 'btn-primary' :  'btn-secondary'%>">latest</a>
+        <a href="/explorer?filter=week" class="btn <%= filter == 'week' ? 'btn-primary' :  'btn-secondary'%> ms-2">week</a>
+        <a href="/explorer?filter=month" class="btn <%= filter == 'month' ? 'btn-primary' :  'btn-secondary'%> mx-2">month</a>
+        <a href="/explorer?filter=all" class="btn <%= filter == 'all' ? 'btn-primary' :  'btn-secondary'%> ms-2">all</a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <section>
+      <% if (posts.length === 0) { %>
+        <div class="col-12">
+          <div class="card card-body">
+            <p class="text-center h5">There is no posts</p>
+          </div>
+        </div>
+      <% }else{ %>
+        <div class="col-6 mx-auto">
+          <% for(let post of posts) {%>
+            <div class="card card-body my-3">
+              <% if (post.thumbnail) { %>
+               <img src="<%= post.thumbnail %>" class="img-fluid mb-2" style="height: 325px;">
+              <% } %>
+              <a href="/explorer/<%= post._id %>" class="text-secondary">
+                <h5><%= post.title %></h5>
+                <p><%= truncate(post.body) %> </p>
+              </a>
+              <div class="d-flex">
+                <small class="text-secondary">
+                  <%= moment(post.createdAt) %>, 
+                  <%= post.readTime %>,
+                  posted by - <a href="/author/<%= post.author._id %> "><%= post.author.username %></a>  
+                </small>
+                <% if (user) { %>
+                  <span class="ms-auto bookmarks" data-post="<%= post._id %>">
+                    <% if (bookmarks.includes(post._id)) { %>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-square-fill" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/>
+                      </svg>
+                    <% } else {%>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="35" height="25" fill="currentColor" class="bi bi-bookmark-plus-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z"/>
+                      </svg>
+                    <% } %> 
+                  </span>
+                <% } %>               
+              </div>
+            </div>
+          <% } %>  
+        </div>
+      <% } %>     
+    </section>
+    <% if (totalPage > 1) { %>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+            <a class="page-link" href="<%= `/explorer?filter=${filter}&page=${currentPage - 1}`%> ">previous</a>
+          </li>
+          <% for( let i = 1; i <= totalPage; i++ ) { %>
+            <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+              <a class="page-link" href="<%= `/explorer?filter=${filter}&page=${i}`%> "><%= i %> </a>
+            </li>
+          <% } %>
+          <li class="page-item <%= currentPage === totalPage ? 'disabled' : '' %>">
+            <a class="page-link" href="<%= `/explorer?filter=${filter}&page=${currentPage + 1}`%> ">next</a>
+          </li>
+        </ul>
+      </nav>
+    <% } %>
+  </div>
+</div>
+
+<%- include('../../partials/footer.ejs') %>
+<script src="/scripts/bookmarks.js"></script>
+</body>
+</html>

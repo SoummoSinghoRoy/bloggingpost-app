@@ -1,0 +1,50 @@
+<%- include('../../partials/header.ejs') %>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-lg-3 col-md-3">
+      </div>
+      <div class="col-12 col-lg-6 col-md-6">
+        <div class="card card-body mt-5 mx-0 mx-lg-5 mx-md-5">
+          <h4 class="text-secondary">Login to your account</h4>
+          <form action="/auth/login" method="post" class="py-3">
+            <div class="row">
+              <div class="col">
+                <label for="email" class="form-label">Enter you email (use correct email)</label>
+                <input type="email" class="form-control <%= error.email ? 'is-invalid' : '' %>" name="email" id="email">
+                <p class="validation-feedback">
+                  <%= error.email && error.email %> 
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="password" class="form-label">Enter you password (use correct password)</label>
+                <input type="password" class="form-control <%= error.password ? 'is-invalid' : '' %>" name="password" id="password">
+                <p class="validation-feedback">
+                  <%= error.password && error.password %> 
+                </p>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-6">
+                <input type="submit" class="btn btn-primary" value="Log in">
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-12">
+                <p class="mt-2">Don't have you any account? <a href="/auth/signup">signup now</a></p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-12 col-lg-3 col-md-3">
+      </div>
+    </div>
+  </div>
+
+<%- include('../../partials/footer.ejs')  %>
+</body>
+</html> 
+

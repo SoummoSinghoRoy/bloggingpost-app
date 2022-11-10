@@ -1,0 +1,40 @@
+<%- include('../../partials/header.ejs') %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <%- include('../../partials/sidebar.ejs')  %>
+    </div>
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="text-secondary text-center my-3 pb-2">List of bookmarks posts</h4>
+          <div class="author-posts mt-4">
+            <% if (bookmarksPost.length === 0) { %>
+              <div class="card card-body">
+                <h4 class="card-title text-muted">Bookmarks post not found</h4>
+              </div>
+            <% }else{ %>
+              <div class="row">
+                <% for( let post of bookmarksPost.reverse() ) { %>
+                <div class="col-4">
+                  <div class="card card-body">
+                    <% if (post.thumbnail) { %>
+                      <img src="<%= post.thumbnail %> " class="card-img-top" alt="post thumbnail" height="145">
+                    <% } %>
+                    <a href="/explorer/<%= post._id %>" class="text-dark h6 pt-2"><%= post.title %> </a>
+                  </div>
+                </div>
+              <% } %>
+              </div>
+            <% } %> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../../partials/footer.ejs') %>
+</body>
+</html>

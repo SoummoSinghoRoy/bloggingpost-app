@@ -1,0 +1,54 @@
+<%- include('../../../partials/header.ejs')  %>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <%- include('../../../partials/sidebar.ejs')  %>
+      </div>
+
+      <div class="col-md-9">
+        <h4 class="text-center py-3"> <%= title %>  </h4>
+        <div class="card card-body py-5">
+          <form action="/posts/edit/<%= post._id %> " method="post" enctype="multipart/form-data">
+            <div class="form-group py-2">
+              <label for="title">Enter post title</label>
+              <input type="text" name="title" id="title" class="form-control <%= error.title ? 'is-invalid' : '' %>" value="<%= post.title ? post.title : '' %>">
+              <p class="validation-feedback text-danger">
+                <%= error.title %> 
+              </p>
+            </div>
+            <div class="form-group py-2">
+              <label for="tiny-mce-post-body">Enter post body</label>
+              <textarea name="body" id="tiny-mce-post-body" class="form-control mt-2 <%= error.body ? 'is-invalid' : '' %>"><%= post.body ? post.body : '' %></textarea>
+              <p class="validation-feedback text-danger">
+                <%= error.body %> 
+              </p>
+            </div>
+            <div class="form-group py-2">
+              <label for="tags">Enter post tags (max 10)</label>
+              <input type="text" name="tags" id="tags" placeholder="tag1, tag2, tag3" class="form-control" value="<%= post.tags.length > 0 ? post.tags.join(', ') : '' %>">
+            </div>
+            <% if (post.thumbnail) { %>
+             <p>Post Thumbnail</p>
+             <img src="<%= post.thumbnail %> " alt="post thumbnail" id="postThumbnail" class="img-fluid my-4">
+            <% } %>
+            <div class="input-group py-2">
+              <input type="file" class="form-control" name="post-thumbnail" id="inputGroupFile02">
+              <label class="input-group-text" for="inputGroupFile02">Upload</label>
+            </div>
+            <input type="submit" class="btn btn-primary my-2" value="update post">
+
+            <!-- <a class="btn btn-secondary mt-2" href="#" role="button" id="deleteBtn">delete post</a> -->
+            <a class="btn btn-danger float-end mt-2" href="/posts/delete/<%= post._id %> " role="button" id="deleteBtn">delete post</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<%- include('../../../partials/footer.ejs')  %>
+
+<script src="https://cdn.tiny.cloud/1/qj37xl1j5kuour7fppix7uk9rnxjv90guaujle1lpstnh36q/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="/scripts/tinyMce.js"></script>
+</body>
+</html> 

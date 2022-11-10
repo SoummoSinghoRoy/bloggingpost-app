@@ -1,0 +1,74 @@
+<%- include('../../partials/header.ejs')  %>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3">
+        <%- include('../../partials/sidebar.ejs')  %>
+      </div>
+
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-md-8 offset-md-2">
+            
+            <div class="card">
+              <div class="card-body">
+                <h4> <%= title %>  </h4>
+                <hr>
+                <div class="row pt-4 pb-2">
+                  <div class="profile-pics col-4">
+                    <img 
+                      src=" <%= user.profilePics %> " 
+                      alt="profile-pic"
+                      class="img-fluid"
+                      id="uploadedPic"
+                    >
+                  </div>
+                  <div class="col-8">
+                    <div class="card">
+                      <div class="card-header">
+                        <h5>Follow the instructions</h5>
+                      </div>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item border-white">Image Dimension: </li>
+                        <li class="list-group-item border-white">width: 200px & height: 200px</li>
+                        <li class="list-group-item border-white">Image Size: less then 2Mb</li>
+                        <li class="list-group-item border-white" id="alertBox"></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <form action="/uploads/profile-pics" class="row g-3" method="post" enctype="multipart/form-data" id="profilePicsForm">
+                    <div class="col-10">
+                      <div class="input-group mb-3">
+                        <label class="input-group-text" for="profilePicsFile">Upload</label>
+                        <input 
+                          type="file" 
+                          class="form-control" 
+                          name="profilePicsFile" 
+                          id="profilePicsFile" 
+                          accept="images/*" 
+                        >
+                      </div>
+                    </div>
+                    <div class="col-2">
+                      <input type="submit" class="btn btn-primary float-end" id="confirmUploading" value="submit">
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<%- include('../../partials/footer.ejs')  %>
+
+
+<script src="/scripts/profilePicsUpload.js"></script>
+
+</body>
+</html> 
