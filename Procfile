@@ -1,1 +1,1 @@
-start npm start
+start node app.js
