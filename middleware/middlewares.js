@@ -9,6 +9,7 @@ const setLocals = require('./setLocals');
 
 const store = new MongoDBStore({
   uri: `mongodb+srv://${config.get('db-admin')}:${config.get('db-password')}@blogpost-app.l1ecnyb.mongodb.net/blogpost-app`,
+  databaseName: 'blogpost-app',
   collection: 'sessions',
   expires: 1000 * 60 * 60 * 2
 });
@@ -19,8 +20,7 @@ const middlewares = [
   express.urlencoded({extended: true}),
   express.json(),
   session({
-    // secret: config.get('secret') || 'keyboard cat',
-    secret: 'keyboard cat',
+    secret: config.get('secret') || 'this is secret',
     resave: false,
     saveUninitialized: false,
     store: store,
